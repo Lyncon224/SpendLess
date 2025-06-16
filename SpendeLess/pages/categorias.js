@@ -126,7 +126,7 @@ const handleAdicionarCategoria = async () => {
       
     {/* lista categorias */}
     <View style={styles.card}>
-      <Text style={styles.tituloCard}>CATEGORIAS</Text>
+      <Text style={styles.tituloCard}>Categorias</Text>
       <ScrollView> 
         {categorias.map((categoria) => (
           <View key={categoria.id}>

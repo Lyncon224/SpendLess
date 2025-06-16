@@ -3,7 +3,6 @@ import { Modal, View, Text, StyleSheet, SectionList, TextInput, ScrollView, Aler
 import { Feather } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import Checkbox from 'expo-checkbox';
-import { useFonts, LilitaOne_400Regular } from '@expo-google-fonts/lilita-one';
 import { Picker } from '@react-native-picker/picker';
 import { collection, onSnapshot, query, orderBy, addDoc, doc, updateDoc, runTransaction, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -23,10 +22,6 @@ export default function ListaMetas() {
   const [metaSelecionada, setMetaSelecionada] = useState(null);
   const [valorAdicionar, setValorAdicionar] = useState('');
   const [carregando, setCarregando] = useState(true);
-
-  const [fontsLoaded] = useFonts({
-    LilitaOne_400Regular,
-  });
 
   useEffect(() => {
     setCarregando(true);
@@ -55,7 +50,7 @@ export default function ListaMetas() {
     return () => desinscrever();
   }, []);
 
-  if (!fontsLoaded || carregando) {
+  if (carregando) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5' }}>
         <ActivityIndicator size="large" color="#14393D" />
@@ -120,7 +115,7 @@ export default function ListaMetas() {
           )}
         </View>
       </View>
-      <Text>Data: {item.dataPrevista}</Text>
+      <Text>Data Prevista: {item.dataPrevista}</Text>
       {item.status === 'concluida' && item.dataConclusao && (
         <Text>Data de conclusão: {item.dataConclusao}</Text>
       )}
@@ -240,47 +235,47 @@ export default function ListaMetas() {
   }
 
   return (
-    <ScrollView 
-    style={{ flex: 1, backgroundColor: '#F5F5F5' }} contentContainerStyle={{ paddingBottom: 40 }}>
-      <Text style={styles.tituloPagina}>MINHAS METAS</Text>
+   
+    <View style={{ flex: 1, backgroundColor: '#F5F5F5' }}>
+      <Text style={styles.tituloPagina}>Minhas metas</Text>
 
       <View style={styles.ViewBotaoAddMeta}>
-        <TouchableOpacity 
-        style={styles.botaoAddMeta} 
-        onPress={() => setModalVisible1(true)}>
+        <TouchableOpacity
+          style={styles.botaoAddMeta}
+          onPress={() => setModalVisible1(true)}>
           <Text style={styles.botaoAddMetaTexto}>+ Nova meta</Text>
         </TouchableOpacity>
       </View>
 
-      <Modal 
-      animationType="none" 
-      transparent={true} 
-      visible={modalVisible1} 
-      onRequestClose={() => setModalVisible1(false)}>
+      <Modal
+        animationType="none"
+        transparent={true}
+        visible={modalVisible1}
+        onRequestClose={() => setModalVisible1(false)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Feather name="x-circle" color="black" size={20} onPress={() => setModalVisible1(false)} style={styles.botaoFecharModal} />
             <Text style={styles.tituloModal}>Adicionar Meta</Text>
             <Text>Nome:</Text>
-            <TextInput 
-            style={styles.input} 
-            value={novoNome} 
-            onChangeText={setNovoNome} />
+            <TextInput
+              style={styles.input}
+              value={novoNome}
+              onChangeText={setNovoNome} />
             <Text>Valor em R$:</Text>
-            <TextInput 
-            style={styles.input} 
-            value={novoValor} 
-            onChangeText={(text) => setNovoValor(aplicarMascaraValor(text))} keyboardType="numeric" />
+            <TextInput
+              style={styles.input}
+              value={novoValor}
+              onChangeText={(text) => setNovoValor(aplicarMascaraValor(text))} keyboardType="numeric" />
             <Text>Data de previsão:</Text>
-            <TextInput 
-            style={styles.input} 
-            value={novaData} onChangeText={(text) => setNovaData(aplicarMascaraData(text))} keyboardType="numeric" maxLength={10} />
+            <TextInput
+              style={styles.input}
+              value={novaData} onChangeText={(text) => setNovaData(aplicarMascaraData(text))} keyboardType="numeric" maxLength={10} />
             <Text>Frequência:</Text>
             <View style={styles.pickerGrupo}>
-              <Picker 
-              selectedValue={frequenciaSelecionada} 
-              onValueChange={(itemValue) => setFrequenciaSelecionada(itemValue)} 
-              style={styles.picker}>
+              <Picker
+                selectedValue={frequenciaSelecionada}
+                onValueChange={(itemValue) => setFrequenciaSelecionada(itemValue)}
+                style={styles.picker}>
                 <Picker.Item label="Mensal" value="mensal" />
                 <Picker.Item label="Semanal" value="semanal" />
               </Picker>
@@ -295,35 +290,35 @@ export default function ListaMetas() {
         </View>
       </Modal>
 
-      <Modal 
-      animationType="none" 
-      transparent={true} 
-      visible={modalVisible2} 
-      onRequestClose={() => setModalVisible2(false)}>
+      <Modal
+        animationType="none"
+        transparent={true}
+        visible={modalVisible2}
+        onRequestClose={() => setModalVisible2(false)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Feather name="x-circle" color="black" size={20} onPress={() => setModalVisible2(false)} style={styles.botaoFecharModal} />
             <Text style={styles.tituloModal}>Editar Meta</Text>
             <Text>Nome:</Text>
-            <TextInput 
-            style={styles.input} 
-            value={novoNome} 
-            onChangeText={setNovoNome} />
+            <TextInput
+              style={styles.input}
+              value={novoNome}
+              onChangeText={setNovoNome} />
             <Text>Valor:</Text>
-            <TextInput 
-            style={styles.input} 
-            value={novoValor} 
-            onChangeText={(text) => setNovoValor(aplicarMascaraValor(text))} keyboardType="numeric" />
+            <TextInput
+              style={styles.input}
+              value={novoValor}
+              onChangeText={(text) => setNovoValor(aplicarMascaraValor(text))} keyboardType="numeric" />
             <Text>Data de previsão:</Text>
-            <TextInput 
-            style={styles.input} 
-            value={novaData} 
-            onChangeText={(text) => setNovaData(aplicarMascaraData(text))} keyboardType="numeric" maxLength={10} />
+            <TextInput
+              style={styles.input}
+              value={novaData}
+              onChangeText={(text) => setNovaData(aplicarMascaraData(text))} keyboardType="numeric" maxLength={10} />
             <Text>Frequência:</Text>
             <View style={styles.pickerGrupo}>
-              <Picker 
-              selectedValue={frequenciaSelecionada} 
-              onValueChange={(itemValue) => setFrequenciaSelecionada(itemValue)} style={styles.picker}>
+              <Picker
+                selectedValue={frequenciaSelecionada}
+                onValueChange={(itemValue) => setFrequenciaSelecionada(itemValue)} style={styles.picker}>
                 <Picker.Item label="Mensal" value="mensal" />
                 <Picker.Item label="Semanal" value="semanal" />
               </Picker>
@@ -337,25 +332,25 @@ export default function ListaMetas() {
         </View>
       </Modal>
 
-      <Modal 
-      animationType="none" 
-      transparent={true} 
-      visible={modalVisible3} 
-      onRequestClose={() => setModalVisible3(false)}>
+      <Modal
+        animationType="none"
+        transparent={true}
+        visible={modalVisible3}
+        onRequestClose={() => setModalVisible3(false)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Feather name="x-circle" color="black" size={20} onPress={() => setModalVisible3(false)} style={styles.botaoFecharModal} />
             <Text style={styles.tituloModal}>Excluir Meta</Text>
             <Text style={{ fontSize: 15, marginBottom: 10 }}>Tem certeza que deseja excluir esta meta?</Text>
             <View style={styles.ViewBotaoDelMeta}>
-              <TouchableOpacity 
-              style={styles.botaoDelMetaN} 
-              onPress={() => setModalVisible3(false)}>
+              <TouchableOpacity
+                style={styles.botaoDelMetaN}
+                onPress={() => setModalVisible3(false)}>
                 <Text style={styles.botaoDelMetaTextoN}>Não</Text>
               </TouchableOpacity>
-              <TouchableOpacity 
-              style={styles.botaoDelMeta} 
-              onPress={excluirMeta}>
+              <TouchableOpacity
+                style={styles.botaoDelMeta}
+                onPress={excluirMeta}>
                 <Text style={styles.botaoDelMetaTexto}>Sim</Text>
               </TouchableOpacity>
             </View>
@@ -363,31 +358,31 @@ export default function ListaMetas() {
         </View>
       </Modal>
 
-      <Modal 
-      animationType="none" 
-      transparent={true} 
-      visible={modalVisible4} 
-      onRequestClose={() => setModalVisible4(false)}>
+      <Modal
+        animationType="none"
+        transparent={true}
+        visible={modalVisible4}
+        onRequestClose={() => setModalVisible4(false)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Feather name="x-circle" color="black" size={20} onPress={() => setModalVisible4(false)} style={styles.botaoFecharModal} />
             <Text style={styles.tituloModal}>Adicionar Valor à Meta</Text>
             <Text>Valor:</Text>
-            <TextInput 
-            style={styles.input} 
-            value={valorAdicionar} 
-            onChangeText={(text) => setValorAdicionar(aplicarMascaraValor(text))} keyboardType="numeric" />
+            <TextInput
+              style={styles.input}
+              value={valorAdicionar}
+              onChangeText={(text) => setValorAdicionar(aplicarMascaraValor(text))} keyboardType="numeric" />
             <View style={styles.checkboxContainer}>
-              <Checkbox 
-              value={isSelecionado} 
-              onValueChange={setIsSelecionado} 
-              color={isSelecionado ? '#2E7F86' : undefined} />
+              <Checkbox
+                value={isSelecionado}
+                onValueChange={setIsSelecionado}
+                color={isSelecionado ? '#2E7F86' : undefined} />
               <Text style={styles.checkboxTexto}>Retirar valor do saldo atual</Text>
             </View>
             <View style={styles.ViewBotaoDelMeta}>
-              <TouchableOpacity 
-              style={styles.botaoDelMeta} 
-              onPress={adicionarValorMeta}>
+              <TouchableOpacity
+                style={styles.botaoDelMeta}
+                onPress={adicionarValorMeta}>
                 <Text style={styles.botaoDelMetaTexto}>Adicionar</Text>
               </TouchableOpacity>
             </View>
@@ -404,7 +399,7 @@ export default function ListaMetas() {
         )}
         contentContainerStyle={styles.container}
       />
-    </ScrollView>
+    </View>
   );
 }
 
@@ -417,7 +412,7 @@ const styles = StyleSheet.create({
     margin: 16,
     color: '#14393D',
     alignSelf: 'center',
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold', 
   },
   tituloSecao: {
     fontWeight: 'bold',
@@ -440,8 +435,8 @@ const styles = StyleSheet.create({
   nome: {
     fontSize: 16,
     marginRight: 8,
-    fontFamily: 'LilitaOne_400Regular',
     color: '#14393D',
+    fontWeight: 'bold', 
   },
   nomeContainer: {
     flexDirection: 'row',
@@ -507,7 +502,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'black',
     marginBottom: 10,
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold', 
   },
   input: {
     height: 40,
@@ -556,9 +551,9 @@ const styles = StyleSheet.create({
   tituloModal: {
     fontSize: 18,
     color: '#14393D',
-    fontFamily: 'LilitaOne_400Regular',
     textAlign: 'center',
-    marginBottom: 10
+    marginBottom: 10,
+    fontWeight: 'bold', 
   },
   botaoFecharModal: {
     position: 'absolute',
@@ -597,12 +592,12 @@ const styles = StyleSheet.create({
   botaoDelMetaTexto: {
     color: 'white',
     fontSize: 15,
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold', 
   },
   botaoDelMetaTextoN: {
     color: '#2E7F86',
     fontSize: 15,
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold', 
   },
   ViewBotaoDelMeta: {
     flexDirection: 'row',

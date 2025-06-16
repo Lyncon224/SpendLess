@@ -83,7 +83,7 @@ textoBotao: {
     left:50,
     position: 'absolute',
     top: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
 
   }
 })

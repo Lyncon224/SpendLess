@@ -45,7 +45,7 @@ const TelaHistorico = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>HISTÓRICO</Text>
+      <Text style={styles.titulo}>Histórico</Text>
 
       <View style={styles.filtrosContainer}>
 

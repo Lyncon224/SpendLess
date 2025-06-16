@@ -1,11 +1,11 @@
-import {View,Text,TouchableOpacity,StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Footer from '../components/footer';
 
 
-export default function Ajuda({navigation}) {
+export default function Ajuda({ navigation }) {
   const [abrirPergunta, setAbrirPergunta] = useState([false, false, false]);
 
   function mostrarResposta(index) {
@@ -15,7 +15,7 @@ export default function Ajuda({navigation}) {
       return mostraResposta;
     });
   }
-  
+
   return (
     <>
       <View style={styles.ajudaContainer}>
@@ -26,16 +26,16 @@ export default function Ajuda({navigation}) {
         <Text style={styles.faqTitulo}>Dúvidas frequentes</Text>
 
         <View style={[styles.perguntaEResposta, abrirPergunta[0] && styles.perguntaERespostaAberta]}>
-        <TouchableOpacity style={[styles.pergunta, abrirPergunta[0] && styles.perguntaAberta]} onPress={() => mostrarResposta(0)}>
-          <Text style={[styles.perguntaTexto, abrirPergunta[0] && styles.perguntaTextoAberta]}>Pra quê serve uma View?</Text>
-          <MaterialIcons name='keyboard-arrow-down' size={20} color='black' />
-        </TouchableOpacity>
+          <TouchableOpacity style={[styles.pergunta, abrirPergunta[0] && styles.perguntaAberta]} onPress={() => mostrarResposta(0)}>
+            <Text style={[styles.perguntaTexto, abrirPergunta[0] && styles.perguntaTextoAberta]}>Pra quê serve uma View?</Text>
+            <MaterialIcons name='keyboard-arrow-down' size={20} color='black' />
+          </TouchableOpacity>
 
-        <Text
-          style={[styles.respostaTexto, abrirPergunta[0] && styles.respostaTextoAberta]}>
-          Uma View possui uma função equivalente a de uma div, mas que é usada
-          em aplicativos desenvolvidos em react-native
-        </Text>
+          <Text
+            style={[styles.respostaTexto, abrirPergunta[0] && styles.respostaTextoAberta]}>
+            Uma View possui uma função equivalente a de uma div, mas que é usada
+            em aplicativos desenvolvidos em react-native
+          </Text>
         </View>
 
         <View style={[styles.perguntaEResposta, abrirPergunta[1] && styles.perguntaERespostaAberta]}>
@@ -45,12 +45,12 @@ export default function Ajuda({navigation}) {
             <Text style={[styles.perguntaTexto, abrirPergunta[1] && styles.perguntaTextoAberta]}>Pra quê serve uma View?</Text>
             <MaterialIcons name='keyboard-arrow-down' size={20} color='black' />
           </TouchableOpacity>
-        
-        <Text
-          style={[styles.respostaTexto, abrirPergunta[1] && styles.respostaTextoAberta]}>
-          Uma View possui uma função equivalente a de uma div, mas que é usada
-          em aplicativos desenvolvidos em react-native
-        </Text>
+
+          <Text
+            style={[styles.respostaTexto, abrirPergunta[1] && styles.respostaTextoAberta]}>
+            Uma View possui uma função equivalente a de uma div, mas que é usada
+            em aplicativos desenvolvidos em react-native
+          </Text>
         </View>
 
         <View style={[styles.perguntaEResposta, abrirPergunta[2] && styles.perguntaERespostaAberta]}>
@@ -60,12 +60,12 @@ export default function Ajuda({navigation}) {
             <Text style={[styles.perguntaTexto, abrirPergunta[2] && styles.perguntaTextoAberta]}>Pra quê serve uma View?</Text>
             <MaterialIcons name='keyboard-arrow-down' size={20} color='black' />
           </TouchableOpacity>
-        
-        <Text
-          style={[styles.respostaTexto, abrirPergunta[2] && styles.respostaTextoAberta]}>
-          Uma View possui uma função equivalente a de uma div, mas que é usada
-          em aplicativos desenvolvidos em react-native
-        </Text>
+
+          <Text
+            style={[styles.respostaTexto, abrirPergunta[2] && styles.respostaTextoAberta]}>
+            Uma View possui uma função equivalente a de uma div, mas que é usada
+            em aplicativos desenvolvidos em react-native
+          </Text>
         </View>
       </View>
       <Footer />

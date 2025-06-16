@@ -37,8 +37,10 @@ export default function DrawerRoutes() {
     headerTintColor: '#fff',
     drawerActiveTintColor: '#2EBDD0',
     drawerInactiveTintColor: '#fff',
-    drawerStyle: { background: "linear-gradient(to right, #1D515C, #30848F)",},
-
+    drawerStyle: {
+          backgroundColor: '#1D515C',
+        },
+   
     headerRight: () => (
       <View style={{ flexDirection: 'row', marginRight: 10 }}>
 

@@ -9,9 +9,8 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const data = [
   { label: 'Alimentação', value: 50, color: '#F44336' },
-  { label: 'escola', value: 30, color: '#2196F3' },
   { label: 'Transporte', value: 40, color: '#4CAF50' },
-  { label: 'Trabalho e educação', value: 20, color: '#FFEB3B' },
+  { label: 'Trabalho', value: 20, color: '#FFEB3B' },
   { label: 'Lazer', value: 10, color: '#E91E63' },
   { label: 'Saúde', value: 5, color: '#8BC34A' },
   { label: 'Imprevistos', value: 5, color: '#673AB7',  },

@@ -10,6 +10,8 @@ import {
 import { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+
 
 export default function TelaPerfil({ navigation }) {
   const [dataPhoto, setDataPhoto] = useState('');
@@ -69,36 +71,46 @@ export default function TelaPerfil({ navigation }) {
         <TouchableOpacity onPress={() => navigation.navigate('Inicio')} style={styles.exitButton}>
           <Text style={styles.textExitButton}>SAIR DA CONTA</Text>
         </TouchableOpacity>
+
+        
+     <Modal animationType="none" transparent={true} visible={modalRenomearVisible}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.modalContainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardView}
+      >
+        <View style={styles.modalContent}>
+          <View style={styles.modalHeader}>
+            <Text style={styles.tituloModal}>Alterar nome</Text>
+            <AntDesign
+              name="close"
+              color="black"
+              size={20}
+              onPress={() => setModalRenomearVisible(false)}
+              style={styles.botaoFecharModal}
+            />
+          </View>
+
+          <Text style={styles.modalText}>Novo nome:</Text>
+          <TextInput
+            style={styles.input}
+            value={newName}
+            onChangeText={setNewName}
+            placeholder="Digite o novo nome"
+          />
+
+          <TouchableOpacity style={styles.addButton} onPress={ConfirmacaoRenomear}>
+            <Text style={styles.textoAddButton}>Confirmar alteração</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+    </View>
+  </TouchableWithoutFeedback>
+</Modal>
       </View>
 
-      <Modal animationType="fade" transparent={true} visible={modalRenomearVisible}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.tituloModal}>Alterar nome</Text>
-              <AntDesign
-                name="close"
-                color="black"
-                size={20}
-                onPress={() => setModalRenomearVisible(false)}
-                style={styles.botaoFecharModal}
-              />
-            </View>
 
-            <Text style={styles.modalText}>Novo nome:</Text>
-            <TextInput
-              style={styles.input}
-              value={newName}
-              onChangeText={setNewName}
-              placeholder="Digite o novo nome"
-            />
-
-            <TouchableOpacity style={styles.addButton} onPress={ConfirmacaoRenomear}>
-              <Text style={styles.textoAddButton}>Confirmar alteração</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
     </>
   );
 }
@@ -111,10 +123,9 @@ const styles = StyleSheet.create({
   topCircle: {
     position: 'absolute',
     height: 400,
-    width: 800,
+    width: '100%',
     top: -200,
     alignSelf: 'center',
-    borderRadius: 400,
     backgroundColor: '#2F848F',
     zIndex: -1,
   },
@@ -131,6 +142,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 50,
+    marginTop: 12
   },
   userNameRow: {
     flexDirection: 'row',
@@ -160,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   helpButton: {
-    marginLeft: 15,
+    marginTop: 3,
   },
   exitButton: {
     paddingVertical: 12,
@@ -177,18 +189,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  modalContent: {
-    gap: 10,
-    margin: 20,
-    padding: 25,
-    backgroundColor: 'white',
-    borderRadius: 10,
-  },
+modalContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+},
+
+modalContent: {
+  width: '90%', // Garante que não passe da tela
+  maxWidth: 350,
+  padding: 20,
+  backgroundColor: 'white',
+  borderRadius: 10,
+  elevation: 5, // Android
+  shadowColor: '#000', // iOS
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+},
+
   modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -225,4 +245,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
+  keyboardView: {
+  flex: 1,
+  width: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+
 });
